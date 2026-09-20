@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import Image from "next/image";
 import {
   ChevronDown,
   ChevronLeft,
@@ -154,7 +155,12 @@ export default function Home() {
         className={`site-header ${headerHidden ? "site-header-hidden" : ""}`}
       >
         <a href="#top" className="brand" aria-label="Kamap, accueil">
-          <img src="/assets/logos/brand/full-black.svg" alt="KAMAP" />
+          <Image
+            src="/assets/logos/brand/full-black.svg"
+            alt="KAMAP"
+            width={118}
+            height={40}
+          />
           <span>{t.nav_logo_subtext}</span>
         </a>
         <nav aria-label="Navigation principale">
@@ -168,9 +174,11 @@ export default function Home() {
             aria-expanded={menuOpen}
             className="language-current"
           >
-            <img
+            <Image
               src={`/assets/flags/${language === "FR" ? "fr" : language === "NL" ? "nl" : language === "EN" ? "en" : language === "ES" ? "es" : "de"}.png`}
               alt=""
+              width={23}
+              height={23}
             />
             {language}
             <ChevronDown size={15} strokeWidth={2.25} aria-hidden="true" />
@@ -210,7 +218,12 @@ export default function Home() {
               {t.hero_title_2}
               <br />
               {t.hero_title_3}{" "}
-              <img src="/assets/hero/tonsport.png" alt="ton sport" />
+              <Image
+                src="/assets/hero/tonsport.png"
+                alt="ton sport"
+                width={100}
+                height={40}
+              />
             </h1>
             <p>{plainLines(t.hero_desc)}</p>
             <div className="actions">
@@ -242,7 +255,9 @@ export default function Home() {
                 target="_blank"
                 rel="noreferrer"
               >
-                <img
+                <Image
+                  fill
+                  sizes="240px"
                   src={selected.images[photo]}
                   alt={`Publication Instagram ${imageName}`}
                 />
@@ -255,20 +270,26 @@ export default function Home() {
               >
                 <ChevronRight size={22} strokeWidth={2.25} aria-hidden="true" />
               </button>
-              <img
+              <Image
                 className="deco deco-one"
                 src="/assets/hero/decorations/deco-1.png"
                 alt=""
+                width={57}
+                height={57}
               />
-              <img
+              <Image
                 className="deco deco-two"
                 src="/assets/hero/decorations/deco-2.png"
                 alt=""
+                width={57}
+                height={57}
               />
-              <img
+              <Image
                 className="deco deco-three"
                 src="/assets/hero/decorations/deco-3.png"
                 alt=""
+                width={57}
+                height={57}
               />
             </div>
             <div className="follow">
@@ -298,9 +319,11 @@ export default function Home() {
             target="_blank"
             rel="noreferrer"
           >
-            <img
+            <Image
               src="/assets/logos/partners/startlab-brussels.png"
               alt="StartLAB Brussels"
+              width={160}
+              height={43}
             />
           </a>
           <a
@@ -308,15 +331,19 @@ export default function Home() {
             target="_blank"
             rel="noreferrer"
           >
-            <img
+            <Image
               src="/assets/logos/partners/dripcode-full.svg"
               alt="DripCode"
+              width={160}
+              height={43}
             />
           </a>
           <a href="https://bsthenos.com/" target="_blank" rel="noreferrer">
-            <img
+            <Image
               src="/assets/logos/partners/b-sthenos-dark.png"
               alt="B-sthenos"
+              width={160}
+              height={43}
             />
           </a>
         </section>
@@ -328,7 +355,12 @@ export default function Home() {
               <p>{plainLines(t.found_p1)}</p>
               <p>{plainLines(t.found_p2)}</p>
             </div>
-            <img src="/assets/logos/marks/mark-3.png" alt="" />
+            <Image
+              src="/assets/logos/marks/mark-3.png"
+              alt=""
+              width={46}
+              height={46}
+            />
           </div>
           <div className="foundation-grid">
             {cards.map((card, index) => (
@@ -341,12 +373,14 @@ export default function Home() {
                   <div className="card-title">
                     <h3>
                       {cardCopy[index].title}{" "}
-                      <img
+                      <Image
                         src="/assets/logos/brand/wordmark-black.svg"
                         alt="Kamap"
+                        width={67}
+                        height={24}
                       />
                     </h3>
-                    <img src={card.icon} alt="" />
+                    <Image src={card.icon} alt="" width={36} height={36} />
                   </div>
                   <p>{cardCopy[index].description}</p>
                   <div
@@ -359,7 +393,11 @@ export default function Home() {
                   </div>
                   {!card.available && (
                     <span className="lock" aria-label="Bientôt disponible">
-                      <LockKeyhole size={38} strokeWidth={1.8} aria-hidden="true" />
+                      <LockKeyhole
+                        size={38}
+                        strokeWidth={1.8}
+                        aria-hidden="true"
+                      />
                     </span>
                   )}
                 </div>
@@ -371,7 +409,12 @@ export default function Home() {
 
         <section className="coming-soon" id="soon">
           <div>
-            <img src="/assets/logos/marks/mark-white-1.png" alt="" />
+            <Image
+              src="/assets/logos/marks/mark-white-1.png"
+              alt=""
+              width={45}
+              height={45}
+            />
             <span>{t.banner_badge}</span>
             <h2>{lines(t.banner_title)}</h2>
             <p>{plainLines(t.banner_p1)}</p>
@@ -416,16 +459,36 @@ export default function Home() {
               </a>
             </p>
             <div className="about-photos">
-              <img src="/assets/about/image-bike.jpg" alt="Cyclisme" />
-              <img src="/assets/about/image-basketball.jpg" alt="Basketball" />
-              <img src="/assets/about/image-street.jpg" alt="Street workout" />
+              <Image
+                src="/assets/about/image-bike.jpg"
+                alt="Cyclisme"
+                width={160}
+                height={175}
+              />
+              <Image
+                src="/assets/about/image-basketball.jpg"
+                alt="Basketball"
+                width={160}
+                height={225}
+              />
+              <Image
+                src="/assets/about/image-street.jpg"
+                alt="Street workout"
+                width={160}
+                height={145}
+              />
             </div>
           </div>
         </section>
       </main>
       <footer>
         <div>
-          <img src="/assets/logos/brand/wordmark-white.svg" alt="KAMAP" />
+          <Image
+            src="/assets/logos/brand/wordmark-white.svg"
+            alt="KAMAP"
+            width={86}
+            height={24}
+          />
           <span>{t.footer_tagline}</span>
         </div>
         <p>{t.footer_rights}</p>
