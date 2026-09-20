@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import { translations } from "@/lib/translations";
 
 const asset = "/assets/";
 
@@ -73,7 +74,9 @@ export default function Home() {
   const [menuOpen, setMenuOpen] = useState(false);
   const [language, setLanguage] = useState("FR");
   const [word, setWord] = useState(0);
-  const words = ["facilement", "ton terrain", "ta salle", "ton parc", "ton club", "ton espace", "ton évènement"];
+  const [headerHidden, setHeaderHidden] = useState(false);
+  const t = translations[language as keyof typeof translations];
+  const words = t.animated_words;
 
   useEffect(() => {
     const slider = window.setInterval(() => setSlide((value) => (value + 1) % slides.length), 13000);
@@ -81,18 +84,36 @@ export default function Home() {
     return () => { window.clearInterval(slider); window.clearInterval(wordsTimer); };
   }, [words.length]);
 
+  useEffect(() => {
+    let previous = window.scrollY;
+    const onScroll = () => {
+      const current = window.scrollY;
+      if (Math.abs(current - previous) > 5) setHeaderHidden(current > previous && current > 100);
+      previous = current;
+    };
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => window.removeEventListener("scroll", onScroll);
+  }, []);
+
   const selected = slides[slide];
   const imageName = selected.images[photo].split("/").at(-1)?.replace(/\.[^.]+$/, "") ?? "kamapbe";
+  const lines = (value: string) => value.split("<br>").map((line, index) => <span key={`${line}-${index}`}>{line}{index < value.split("<br>").length - 1 && <br />}</span>);
+  const plainLines = (value: string) => lines(value.replace(/<[^>]*>/g, ""));
+  const cardCopy = [
+    { number: t.card1_title, title: t.card1_h, description: t.card1_p, imageText: t.card1_img_text },
+    { number: t.card2_title, title: t.card2_h, description: t.card2_p, imageText: t.card2_img_text },
+    { number: t.card3_title, title: t.card3_h, description: t.card3_p, imageText: t.card3_img_text },
+  ];
 
   return (
     <>
-      <header className="site-header">
+      <header className={`site-header ${headerHidden ? "site-header-hidden" : ""}`}>
         <a href="#top" className="brand" aria-label="Kamap, accueil">
           <img src={`${asset}Logo Kamap/Logo_kamap_hero/logo_complet_noir.svg`} alt="KAMAP" />
-          <span>la carte interactive du sport</span>
+          <span>{t.nav_logo_subtext}</span>
         </a>
         <nav aria-label="Navigation principale">
-          <a href="#top">Accueil</a><a href="#about">À propos</a><a href="#about">Contact</a>
+          <a href="#top">{t.nav_home}</a><a href="#about">{t.nav_about}</a><a href="#about">{t.nav_contact}</a>
         </nav>
         <div className="language-picker">
           <button onClick={() => setMenuOpen((value) => !value)} aria-expanded={menuOpen} className="language-current">
@@ -105,9 +126,9 @@ export default function Home() {
       <main id="top">
         <section className="hero" style={{ backgroundImage: `linear-gradient(90deg, rgba(12,25,53,.83) 0%, rgba(15,29,55,.5) 52%, rgba(12,25,53,.16)), url("${asset}${selected.background}")` }}>
           <div className="hero-copy">
-            <h1>Trouve <span className="changing-word" key={word}>{words[word]}</span><br />En toute liberté<br />Pour conquérir <img src={`${asset}Hero image/tonsport.png`} alt="ton sport" /></h1>
-            <p>Nous aidons la communauté sportive à facilement trouver les meilleurs organisations, clubs, lieux d&apos;entraînement et événements sportifs de leur région sur la carte Kamap.</p>
-            <div className="actions"><a className="button button-light" href="#foundations">Découvrir le projet</a><a className="button button-teal" href="#soon">La carte</a></div>
+            <h1>{t.hero_title_1} <span className="changing-word" key={word}>{words[word]}</span><br />{t.hero_title_2}<br />{t.hero_title_3} <img src={`${asset}Hero image/tonsport.png`} alt="ton sport" /></h1>
+            <p>{plainLines(t.hero_desc)}</p>
+            <div className="actions"><a className="button button-light" href="#foundations">{t.hero_btn_1}</a><a className="button button-teal" href="#soon">{t.hero_btn_2}</a></div>
           </div>
           <div className="instagram-card">
             <p>@{imageName}</p>
@@ -119,7 +140,7 @@ export default function Home() {
               <img className="deco deco-two" src={`${asset}Hero image/hero_slide1/deco/deco2.png`} alt="" />
               <img className="deco deco-three" src={`${asset}Hero image/hero_slide1/deco/deco3.png`} alt="" />
             </div>
-            <div className="follow">suis-nous sur<br /><strong>insta !!</strong></div>
+            <div className="follow">{t.hero_suis}<br /><strong>{t.hero_insta}</strong></div>
           </div>
           <div className="slide-dots">{slides.map((_, index) => <button key={index} className={index === slide ? "active" : ""} aria-label={`Slide ${index + 1}`} onClick={() => { setPhoto(0); setSlide(index); }} />)}</div>
         </section>
@@ -131,15 +152,15 @@ export default function Home() {
         </section>
 
         <section className="foundations section" id="foundations">
-          <div className="section-heading"><div><h2>Nos 3 fondamentaux,<br />au sein du projet pour la communauté.</h2><p>Kamap est une carte interactive qui permet à chaque athlète de bénéficier d&apos;un soutien sur base de qualité, adaptabilité et durabilité tout au long de son parcours sportif.</p><p>Lorsque nos fondements sont intégrés au sein de votre organisation sportive, vous créez l&apos;environnement idéal pour que chacun puisse s&apos;épanouir.</p></div><img src={`${asset}Logo Kamap/mini_icone_kamap/iconne_3.png`} alt="" /></div>
-          <div className="foundation-grid">{cards.map((card) => <article className="foundation" key={card.number}><p className="foundation-number">{card.number}</p><div className={`foundation-panel ${!card.available ? "locked" : ""}`} style={{ backgroundImage: `url("${asset}${card.background}")` }}><div className="card-title"><h3>{card.title} <img src={`${asset}Logo Kamap/Text_kamap/logo_texte_noir.svg`} alt="Kamap" /></h3><img src={`${asset}${card.icon}`} alt="" /></div><p>{card.description}</p><div className="card-photo" style={{ backgroundImage: `linear-gradient(0deg, rgba(0,0,0,.55), transparent), url("${asset}${card.image}")` }}><span>{card.text.split("\n").map((line) => <>{line}<br /></>)}</span></div>{!card.available && <span className="lock">⌑</span>}</div><p className="quote">“ {card.quote} ”</p></article>)}</div>
+          <div className="section-heading"><div><h2>{lines(t.found_title)}</h2><p>{plainLines(t.found_p1)}</p><p>{plainLines(t.found_p2)}</p></div><img src={`${asset}Logo Kamap/mini_icone_kamap/iconne_3.png`} alt="" /></div>
+          <div className="foundation-grid">{cards.map((card, index) => <article className="foundation" key={card.number}><p className="foundation-number">{cardCopy[index].number}</p><div className={`foundation-panel ${!card.available ? "locked" : ""}`} style={{ backgroundImage: `url("${asset}${card.background}")` }}><div className="card-title"><h3>{cardCopy[index].title} <img src={`${asset}Logo Kamap/Text_kamap/logo_texte_noir.svg`} alt="Kamap" /></h3><img src={`${asset}${card.icon}`} alt="" /></div><p>{cardCopy[index].description}</p><div className="card-photo" style={{ backgroundImage: `linear-gradient(0deg, rgba(0,0,0,.55), transparent), url("${asset}${card.image}")` }}><span>{lines(cardCopy[index].imageText)}</span></div>{!card.available && <span className="lock">⌑</span>}</div><p className="quote">“ {card.quote} ”</p></article>)}</div>
         </section>
 
-        <section className="coming-soon" id="soon"><div><img src={`${asset}Logo Kamap/mini_icone_kamap/iconneblanc_1.png`} alt="" /><span>BIENTÔT DISPONIBLE</span><h2>conquiers. crée. partage<br />ton univers sportif</h2><p>La carte Kamap est actuellement en cours de développement privé. Elle référencera les meilleurs lieux d&apos;entraînement, organisations, compétitions et événements sportifs de votre région.</p><p>Préparez-vous à une recherche filtrée selon vos besoins, vos disponibilités et le type d&apos;infrastructure : public, privé et urbain.</p><form><input type="email" placeholder="Votre adresse e-mail..." disabled /><button disabled>S&apos;inscrire</button></form></div></section>
+        <section className="coming-soon" id="soon"><div><img src={`${asset}Logo Kamap/mini_icone_kamap/iconneblanc_1.png`} alt="" /><span>{t.banner_badge}</span><h2>{lines(t.banner_title)}</h2><p>{plainLines(t.banner_p1)}</p><p>{plainLines(t.banner_p2)}</p><p>{plainLines(t.banner_p3)}</p><form><input type="email" placeholder={t.banner_placeholder} disabled /><button disabled>{t.banner_btn}</button></form></div></section>
 
-        <section className="about section" id="about"><div><h2>À propos</h2><p>Kamap est une carte interactive web app qui offre des services à la communauté sportive, divisés en formules selon les fonctionnalités.</p><ul><li>Carte interactive <b>⌑</b></li><li>IA <b>⌑</b></li><li>Réseaux Kamap <b>⌑</b></li><li>Les cookies <b>⌑</b></li></ul></div><div><h2>Contact</h2><p>Contacte-nous sur <a href="https://www.instagram.com/kamapbe/" target="_blank" rel="noreferrer">instagram ↗</a></p><div className="about-photos"><img src={`${asset}image à propos/image bike.jpg`} alt="Cyclisme" /><img src={`${asset}image à propos/image b-ball.jpg`} alt="Basketball" /><img src={`${asset}image à propos/image street.jpg`} alt="Street workout" /></div></div></section>
+        <section className="about section" id="about"><div><h2>{t.about_h2}</h2><p>{plainLines(t.about_sub)}</p><ul><li>{t.about_li1} <b>⌑</b></li><li>{t.about_li2} <b>⌑</b></li><li>{t.about_li3} <b>⌑</b></li><li>{t.about_li4} <b>⌑</b></li></ul></div><div><h2>{t.contact_h2}</h2><p>{plainLines(t.contact_p)} <a href="https://www.instagram.com/kamapbe/" target="_blank" rel="noreferrer">instagram ↗</a></p><div className="about-photos"><img src={`${asset}image à propos/image bike.jpg`} alt="Cyclisme" /><img src={`${asset}image à propos/image b-ball.jpg`} alt="Basketball" /><img src={`${asset}image à propos/image street.jpg`} alt="Street workout" /></div></div></section>
       </main>
-      <footer><div><img src={`${asset}Logo Kamap/Text_kamap/logo_texte_blanc.svg`} alt="KAMAP" /><span>conquiers. crée. partage</span></div><p>©2026 KAMAP, Tous droits réservés</p></footer>
+      <footer><div><img src={`${asset}Logo Kamap/Text_kamap/logo_texte_blanc.svg`} alt="KAMAP" /><span>{t.footer_tagline}</span></div><p>{t.footer_rights}</p></footer>
     </>
   );
 }
