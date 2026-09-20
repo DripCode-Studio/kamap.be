@@ -154,18 +154,21 @@ export default function Home() {
       title: t.card1_h,
       description: t.card1_p,
       imageText: t.card1_img_text,
+      quote: t.card1_quote,
     },
     {
       number: t.card2_title,
       title: t.card2_h,
       description: t.card2_p,
       imageText: t.card2_img_text,
+      quote: t.card2_quote,
     },
     {
       number: t.card3_title,
       title: t.card3_h,
       description: t.card3_p,
       imageText: t.card3_img_text,
+      quote: t.card3_quote,
     },
   ];
 
@@ -426,7 +429,7 @@ export default function Home() {
                     </span>
                   )}
                 </div>
-                <p className="quote">“ {card.quote} ”</p>
+                <p className="quote">“ {lines(cardCopy[index].quote)} ”</p>
                 {card.available && (
                   <a className="foundation-action" href="#soon">
                     Devenir Nomade

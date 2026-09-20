@@ -580,6 +580,11 @@ body {
   place-items: center;
   content: "";
   background: #0002;
+  opacity: 0;
+  transition: opacity 0.2s ease;
+}
+.locked:hover::after {
+  opacity: 1;
 }
 .lock {
   position: absolute;
@@ -588,6 +593,11 @@ body {
   left: 50%;
   color: white;
   transform: translate(-50%, -50%);
+  opacity: 0;
+  transition: opacity 0.2s ease;
+}
+.locked:hover .lock {
+  opacity: 1;
 }
 .quote {
   min-height: 68px;
