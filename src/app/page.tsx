@@ -469,21 +469,13 @@ export default function Home() {
         </section>
 
         <section className="about section" id="about">
-          <div>
+          <div className="about-title-block">
             <h2>{t.about_h2}</h2>
-            <p>{plainLines(t.about_sub)}</p>
-            <ul>
-              {[t.about_li1, t.about_li2, t.about_li3, t.about_li4].map((item) => (
-                <li key={item}>
-                  <span>{item}</span>
-                  <LockKeyhole size={16} strokeWidth={1.8} aria-hidden="true" />
-                </li>
-              ))}
-            </ul>
+            <p className="about-subtitle">{plainLines(t.about_sub)}</p>
           </div>
-          <div>
+          <div className="contact-title-block">
             <h2>{t.contact_h2}</h2>
-            <p>
+            <p className="contact-p">
               {plainLines(t.contact_p)}{" "}
               <a
                 className="contact-instagram"
@@ -495,7 +487,7 @@ export default function Home() {
                 <InstagramIcon size={23} />
               </a>
             </p>
-            <div className="about-photos">
+            <div className="about-images-container">
               <Image
                 src="/assets/about/image-bike.jpg"
                 alt="Cyclisme"
