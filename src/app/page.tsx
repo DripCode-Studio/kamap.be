@@ -11,6 +11,7 @@ import {
   LockKeyhole,
   Map,
   Share2,
+  ArrowRight,
 } from "lucide-react";
 import { translations } from "@/lib/translations";
 
@@ -426,6 +427,12 @@ export default function Home() {
                   )}
                 </div>
                 <p className="quote">“ {card.quote} ”</p>
+                {card.available && (
+                  <a className="foundation-action" href="#soon">
+                    Devenir Nomade
+                    <ArrowRight size={16} strokeWidth={2} aria-hidden="true" />
+                  </a>
+                )}
               </article>
             ))}
           </div>
@@ -444,10 +451,15 @@ export default function Home() {
             <p>{plainLines(t.banner_p1)}</p>
             <p>{plainLines(t.banner_p2)}</p>
             <p>{plainLines(t.banner_p3)}</p>
-            <form>
-              <input type="email" placeholder={t.banner_placeholder} disabled />
-              <button disabled>{t.banner_btn}</button>
-            </form>
+            <div className="coming-soon-form">
+              <div className="form-lock" aria-label="Inscription bientôt disponible">
+                <LockKeyhole size={28} strokeWidth={1.8} aria-hidden="true" />
+              </div>
+              <form>
+                <input type="email" placeholder={t.banner_placeholder} disabled />
+                <button disabled>{t.banner_btn}</button>
+              </form>
+            </div>
           </div>
         </section>
 
@@ -456,10 +468,12 @@ export default function Home() {
             <h2>{t.about_h2}</h2>
             <p>{plainLines(t.about_sub)}</p>
             <ul>
-              <li>{t.about_li1}</li>
-              <li>{t.about_li2}</li>
-              <li>{t.about_li3}</li>
-              <li>{t.about_li4}</li>
+              {[t.about_li1, t.about_li2, t.about_li3, t.about_li4].map((item) => (
+                <li key={item}>
+                  <span>{item}</span>
+                  <LockKeyhole size={16} strokeWidth={1.8} aria-hidden="true" />
+                </li>
+              ))}
             </ul>
           </div>
           <div>
@@ -467,11 +481,13 @@ export default function Home() {
             <p>
               {plainLines(t.contact_p)}{" "}
               <a
+                className="contact-instagram"
                 href="https://www.instagram.com/kamapbe/"
                 target="_blank"
                 rel="noreferrer"
+                aria-label="KAMAP sur Instagram"
               >
-                instagram ↗
+                <InstagramIcon size={23} />
               </a>
             </p>
             <div className="about-photos">

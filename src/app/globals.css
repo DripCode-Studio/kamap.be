@@ -597,6 +597,27 @@ body {
     15px/1.4 "Space Grotesk",
     sans-serif;
 }
+.foundation-action {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 7px;
+  align-self: center;
+  margin-top: 11px;
+  color: #1c2b51;
+  font:
+    600 14px "Space Grotesk",
+    sans-serif;
+  text-decoration: none;
+  transition:
+    color 0.2s ease,
+    gap 0.2s ease;
+}
+.foundation-action:hover,
+.foundation-action:focus-visible {
+  gap: 10px;
+  color: #44a99b;
+}
 .coming-soon {
   min-height: 700px;
   display: grid;
@@ -631,18 +652,41 @@ body {
   font-size: clamp(3rem, 4.5vw, 5rem);
 }
 .coming-soon p {
-  margin: 22px 0;
+  max-width: 900px;
+  margin: 24px auto 0;
+  color: inherit;
   font:
-    16px/1.55 "Space Grotesk",
+    16px/1.6 "Space Grotesk",
     sans-serif;
 }
-.coming-soon form {
+.coming-soon-form {
+  position: relative;
+  width: fit-content;
+  margin: 35px auto 0;
+}
+.coming-soon-form form {
   display: flex;
   max-width: 510px;
-  margin: 35px auto 0;
   border-radius: 8px;
   overflow: hidden;
-  opacity: 0.68;
+  opacity: 0.72;
+}
+.form-lock {
+  position: absolute;
+  z-index: 2;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  color: #1a1a1a;
+  background: #ffffffe6;
+  border-radius: 8px;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.2s ease;
+}
+.coming-soon-form:hover .form-lock,
+.coming-soon-form:focus-within .form-lock {
+  opacity: 0.84;
 }
 .coming-soon input {
   min-width: 0;
@@ -684,9 +728,31 @@ body {
 .about li b {
   font-weight: normal;
 }
+.about li {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+}
+.about li svg {
+  color: currentColor;
+}
 .about a {
   color: #1c2b51;
   text-decoration: underline;
+}
+.contact-instagram {
+  display: inline-flex;
+  align-items: center;
+  vertical-align: middle;
+  text-decoration: none !important;
+  transition:
+    transform 0.2s ease,
+    color 0.2s ease;
+}
+.contact-instagram:hover,
+.contact-instagram:focus-visible {
+  color: #44a99b;
+  transform: translateY(-2px);
 }
 .about-photos {
   height: 230px;
@@ -735,7 +801,9 @@ footer div {
     13px "Space Grotesk",
     sans-serif;
   text-decoration: none;
-  transition: color 0.2s ease, transform 0.2s ease;
+  transition:
+    color 0.2s ease,
+    transform 0.2s ease;
 }
 .footer-links a:hover,
 .footer-links a:focus-visible {

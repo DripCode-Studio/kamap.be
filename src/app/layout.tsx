@@ -5,7 +5,7 @@ export const metadata: Metadata = {
   title: "KAMAP",
   description: "La carte interactive du sport.",
   icons: {
-    icon: "/favicon.ico",
+    icon: "/assets/logos/marks/mark-white-1.png",
   },
 };
 
