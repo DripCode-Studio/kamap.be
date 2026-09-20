@@ -395,7 +395,7 @@ export default function Home() {
               <article className="foundation" key={card.number}>
                 <p className="foundation-number">{cardCopy[index].number}</p>
                 <div
-                  className={`foundation-panel ${!card.available ? "locked" : ""}`}
+                  className={`foundation-panel foundation-panel-${index + 1} ${!card.available ? "locked" : ""}`}
                   style={{ backgroundImage: `url("${card.background}")` }}
                 >
                   <div className="card-title">
@@ -410,14 +410,16 @@ export default function Home() {
                     </h3>
                     <Image src={card.icon} alt="" width={36} height={36} />
                   </div>
-                  <p>{cardCopy[index].description}</p>
+                  <p>{lines(cardCopy[index].description)}</p>
                   <div
                     className="card-photo"
                     style={{
-                      backgroundImage: `linear-gradient(0deg, rgba(0,0,0,.55), transparent), url("${card.image}")`,
+                      backgroundImage: `linear-gradient(0deg, rgba(0,0,0,.68) 0%, rgba(0,0,0,.08) 62%, transparent 100%), url("${card.image}")`,
                     }}
                   >
-                    <span>{lines(cardCopy[index].imageText)}</span>
+                    <span className="card-image-text">
+                      {lines(cardCopy[index].imageText)}
+                    </span>
                   </div>
                   {!card.available && (
                     <span className="lock" aria-label="Bientôt disponible">
@@ -449,7 +451,7 @@ export default function Home() {
               width={45}
               height={45}
             />
-            <span>{t.banner_badge}</span>
+            <span className="coming-soon-badge">{t.banner_badge}</span>
             <h2>{lines(t.banner_title)}</h2>
             <p>{plainLines(t.banner_p1)}</p>
             <p>{plainLines(t.banner_p2)}</p>
