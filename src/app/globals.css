@@ -185,8 +185,8 @@ body {
   text-decoration: none;
 }
 .brand img {
-  width: 118px;
-  height: 40px;
+  width: 136px;
+  height: 46px;
   object-fit: contain;
   transform: scale(1.35);
   transform-origin: left center;
@@ -194,14 +194,36 @@ body {
 .site-header nav {
   display: flex;
   gap: 32px;
-  margin-left: auto;
+  position: absolute;
+  left: 50%;
+  margin-left: 0;
+  transform: translateX(-50%);
+  white-space: nowrap;
 }
 .site-header nav a {
-  color: #1a1a1a;
+  position: relative;
+  color: #050505;
   font:
     600 14px "Space Grotesk",
     sans-serif;
   text-decoration: none;
+}
+.site-header nav a::after {
+  position: absolute;
+  right: 0;
+  bottom: -6px;
+  left: 0;
+  height: 2px;
+  content: "";
+  background: currentColor;
+  transform: scaleX(0);
+  transform-origin: right;
+  transition: transform 0.2s ease;
+}
+.site-header nav a:hover::after,
+.site-header nav a:focus-visible::after {
+  transform: scaleX(1);
+  transform-origin: left;
 }
 .language-picker {
   position: relative;
@@ -712,7 +734,8 @@ footer p {
     gap: 11px;
   }
   .brand img {
-    width: 90px;
+    width: 104px;
+    height: 36px;
     transform: none;
   }
   .brand span,
