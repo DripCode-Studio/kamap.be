@@ -401,12 +401,32 @@ body {
   bottom: -7px;
 }
 .follow {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
   margin-top: 18px;
+  padding: 4px 0;
+  color: white;
+  text-decoration: none;
   font:
-    20px/0.82 "GT Proelium",
-    "Space Grotesk",
+    16px/1.1 "Space Grotesk",
     sans-serif;
-  text-transform: uppercase;
+  transition:
+    color 0.2s ease,
+    transform 0.2s ease;
+}
+.follow:hover {
+  transform: translateY(-3px);
+}
+.follow span {
+  opacity: 0.95;
+}
+.follow strong {
+  color: #8ce0d2;
+  font:
+    600 17px/1.1 "Space Grotesk",
+    sans-serif;
 }
 .slide-dots {
   position: absolute;
@@ -699,6 +719,46 @@ footer {
 footer div {
   display: grid;
   gap: 7px;
+}
+.footer-links {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 10px 18px;
+}
+.footer-links a {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  color: #ffffffcc;
+  font:
+    13px "Space Grotesk",
+    sans-serif;
+  text-decoration: none;
+  transition: color 0.2s ease, transform 0.2s ease;
+}
+.footer-links a:hover,
+.footer-links a:focus-visible {
+  color: #8ce0d2;
+  transform: translateY(-2px);
+}
+.footer-meta {
+  display: flex;
+  align-items: center;
+  gap: 18px;
+}
+.footer-social {
+  display: grid;
+  place-items: center;
+  color: white;
+  transition:
+    color 0.2s ease,
+    transform 0.2s ease;
+}
+.footer-social:hover,
+.footer-social:focus-visible {
+  color: #8ce0d2;
+  transform: translateY(-2px);
 }
 footer img {
   width: 86px;
