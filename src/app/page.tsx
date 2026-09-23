@@ -457,11 +457,18 @@ export default function Home() {
             <p>{plainLines(t.banner_p2)}</p>
             <p>{plainLines(t.banner_p3)}</p>
             <div className="coming-soon-form">
-              <div className="form-lock" aria-label="Inscription bientôt disponible">
+              <div
+                className="form-lock"
+                aria-label="Inscription bientôt disponible"
+              >
                 <LockKeyhole size={28} strokeWidth={1.8} aria-hidden="true" />
               </div>
               <form>
-                <input type="email" placeholder={t.banner_placeholder} disabled />
+                <input
+                  type="email"
+                  placeholder={t.banner_placeholder}
+                  disabled
+                />
                 <button disabled>{t.banner_btn}</button>
               </form>
             </div>
@@ -511,12 +518,12 @@ export default function Home() {
         </section>
       </main>
       <footer>
-        <div>
+        <div className="w-50">
           <Image
             src="/assets/logos/brand/wordmark-white.svg"
             alt="KAMAP"
-            width={86}
-            height={24}
+            width={120}
+            height={50}
           />
           <span>{t.footer_tagline}</span>
         </div>
