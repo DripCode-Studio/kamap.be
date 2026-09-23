@@ -51,7 +51,7 @@ export const translations = {
     banner_btn: "S'inscrire",
     about_h2: "À propos",
     about_sub:
-      "Kamap est une carte intéractive web app<br>qui offre des services à la communauté sportive,<br>divisés en formules qui varient selon les fonctionnalités.",
+      "Kamap est une carte intéractive web app<br> qui offre des services à la communauté sportive,<br> divisés en formules qui varient selon les fonctionnalités.",
     about_li1: "Carte interactive",
     about_li2: "IH",
     about_li3: "Réseaux Kamap",
